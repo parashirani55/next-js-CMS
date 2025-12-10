@@ -13,6 +13,7 @@ export default async function HomePage() {
 
   return (
     <main>
+      {/* ✅ editable NOT passed */}
       <RenderBlocks blocks={page.blocks} />
     </main>
   );
