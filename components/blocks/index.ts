@@ -1,5 +1,11 @@
-import HeroBlock from "./HeroBlock";
+import SectionBlock from "./SectionBlock";
+import { HeadingBlock } from "./HeadingBlock";
+import { ParagraphBlock } from "./ParagraphBlock";
+import { HtmlBlock } from "./HtmlBlock";
 
 export const blockMap: any = {
-  hero: HeroBlock,
+  section: SectionBlock,
+  heading: HeadingBlock,
+  paragraph: ParagraphBlock,
+  html: HtmlBlock,
 };

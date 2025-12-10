@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase/client";
-import RenderBlocks from "@/components/RenderBlocks";
+// import RenderBlocksServer from "@/components/RenderBlocksServer";
 
 export default async function HomePage() {
   const { data: page } = await supabase
@@ -9,12 +9,14 @@ export default async function HomePage() {
     .eq("status", "published")
     .single();
 
-  if (!page) return <h1>Home not found</h1>;
+  if (!page) return <main>Home not found</main>;
 
   return (
     <main>
-      {/* ✅ editable NOT passed */}
-      <RenderBlocks blocks={page.blocks} />
+      <div className="prose mx-auto">
+  {page?.title}
+</div>
+
     </main>
   );
 }

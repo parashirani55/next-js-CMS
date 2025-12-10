@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase/client";
-import RenderBlocks from "@/components/RenderBlocks";
+import RenderNode from "@/components/RenderNode";
+import RenderNodeServer from "@/components/RenderNodeServer";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const { data: page } = await supabase
@@ -12,8 +13,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
   if (!page) return <h1>Page not found</h1>;
 
   return (
-    <main>
-      <RenderBlocks blocks={page.blocks} />
-    </main>
+<main>
+  {(page.blocks || []).map((node: any) => (
+    <RenderNodeServer key={node.id} node={node} />
+  ))}
+</main>
+
+
   );
 }

@@ -1,19 +1,29 @@
 import { supabase } from "@/lib/supabase/client";
-import RenderBlocks from "@/components/RenderBlocks";
+import RenderNode from "@/components/RenderNode";
 
 export default async function HomePage() {
-  const { data: page } = await supabase
+  const { data } = await supabase
     .from("pages")
     .select("*")
     .eq("slug", "/")
     .eq("status", "published")
-    .single();
+    .limit(1);
 
-  if (!page) return <h1>Home not found</h1>;
+  const page = data?.[0];
+  if (!page) return <main>Home not found</main>;
 
   return (
-    <main>
-      <RenderBlocks blocks={page.blocks} />
+    <main className="mx-auto max-w-5xl">
+      {/* Page title (optional) */}
+      <h1 className="text-3xl font-bold my-6 text-center">
+        {page.title}
+      </h1>
+
+      {/* RENDER BLOCKS */}
+      {Array.isArray(page.blocks) &&
+        page.blocks.map((node: any) => (
+          <RenderNode key={node.id} node={node} />
+        ))}
     </main>
   );
 }
